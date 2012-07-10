@@ -75,7 +75,7 @@ static int load(const char *id,
     handle = dlopen(path, RTLD_NOW);
     if (handle == NULL) {
         char const *err_str = dlerror();
-        LOGE("load: module=%s\n%s", path, err_str?err_str:"unknown");
+        ALOGE("load: module=%s\n%s", path, err_str?err_str:"unknown");
         status = -EINVAL;
         goto done;
     }
@@ -84,7 +84,7 @@ static int load(const char *id,
     const char *sym = HAL_MODULE_INFO_SYM_AS_STR;
     hmi = (struct hw_module_t *)dlsym(handle, sym);
     if (hmi == NULL) {
-        LOGE("load: couldn't find symbol %s", sym);
+        ALOGE("load: couldn't find symbol %s", sym);
         status = -EINVAL;
         goto done;
     }
@@ -92,7 +92,7 @@ static int load(const char *id,
     /* Check that the id matches */
     if (strcmp(id, hmi->id) != 0 &&
         (strncmp(id, "vendor-", 7) != 0 || strcmp(id + 7, hmi->id) != 0)) {
-        LOGE("load: id=%s != hmi->id=%s", id, hmi->id);
+        ALOGE("load: id=%s != hmi->id=%s", id, hmi->id);
         status = -EINVAL;
         goto done;
     }
@@ -110,7 +110,7 @@ static int load(const char *id,
             handle = NULL;
         }
     } else {
-        LOGV("loaded HAL id=%s path=%s hmi=%p handle=%p",
+        ALOGV("loaded HAL id=%s path=%s hmi=%p handle=%p",
                 id, path, *pHmi, handle);
     }
 

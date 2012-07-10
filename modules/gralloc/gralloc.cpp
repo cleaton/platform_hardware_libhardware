@@ -191,7 +191,7 @@ static int gralloc_alloc_buffer(alloc_device_t* dev,
     
     fd = ashmem_create_region("gralloc-buffer", size);
     if (fd < 0) {
-        LOGE("couldn't create ashmem (%s)", strerror(-errno));
+        ALOGE("couldn't create ashmem (%s)", strerror(-errno));
         err = -errno;
     }
 
@@ -205,7 +205,7 @@ static int gralloc_alloc_buffer(alloc_device_t* dev,
         }
     }
     
-    LOGE_IF(err, "gralloc failed err=%s", strerror(-err));
+    ALOGE_IF(err, "gralloc failed err=%s", strerror(-err));
     
     return err;
 }
